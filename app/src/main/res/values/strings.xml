@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">soccer pep</string>
+    <string name="locate_me">Locate Me</string>
+    <string name="Share_Button"></string>
+    <string name="accessToken">pk.eyJ1Ijoic2NydW12aXN1YWxpemUiLCJhIjoiNGE3NGVjNjAyM2Y1MGE3NDQ4OTc2NmI3M2E1Y2UwYTEifQ.WwFcNIwdabPx_irzZ3jDiA</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="header_view">List of Players</string>
+    <string name="Add_Player">Add Player</string>
+
+</resources>
