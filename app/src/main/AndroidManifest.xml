@@ -7,7 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <service android:name="com.mapbox.mapboxsdk.telemetry.TelemetryService"/>
 
         <activity android:name=".MainActivity" >
@@ -43,6 +43,9 @@
         <activity android:name="com.mycompany.myfirstglapp.ListPlayerActivity"
             android:label="Players">
         </activity>
+
+        <activity android:name="com.mycompany.myfirstglapp.LoginActivity" android:theme="@style/AppTheme.Dark" />
+        <activity android:name="com.mycompany.myfirstglapp.SignupActivity" android:theme="@style/AppTheme.Dark" />
 
     </application>
 

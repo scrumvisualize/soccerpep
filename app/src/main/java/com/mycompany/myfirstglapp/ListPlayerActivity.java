@@ -5,20 +5,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 /**
  * Created by admin on 6/09/2016.
  */
 public class ListPlayerActivity extends ListActivity {
-
-    Button button2;
 
     static final String[] PLAYER_LIST =
             { "Vinod", "Arun", "Haju", "Azhar", "Rajesh", "Simman"};
@@ -33,17 +26,17 @@ public class ListPlayerActivity extends ListActivity {
         getListView().addHeaderView(headerView);
         //listView.setAdapter(null);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // When clicked, show a toast with the TextView text
-                Toast.makeText(getApplicationContext(),
-                        ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
 
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+
+        //get selected items
+        String selectedValue = (String) getListAdapter().getItem(position);
+        Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
 
 
     }
-
 
 }
