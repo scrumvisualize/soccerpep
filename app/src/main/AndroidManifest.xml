@@ -44,6 +44,10 @@
             android:label="Players">
         </activity>
 
+        <activity android:name="com.mycompany.myfirstglapp.MyProfileDialog"
+            android:label="My Profile">
+        </activity>
+
         <activity android:name="com.mycompany.myfirstglapp.LoginActivity" android:theme="@style/AppTheme.Dark" />
         <activity android:name="com.mycompany.myfirstglapp.SignupActivity" android:theme="@style/AppTheme.Dark" />
 

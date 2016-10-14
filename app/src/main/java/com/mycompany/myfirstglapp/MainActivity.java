@@ -47,7 +47,7 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     private MapView mapView;
     private MapboxMap map;
-    Button myButton
+    Button myButton;
     Button share;
     protected LocationManager locationManager;
     private Marker customMarker;
@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
 
     private void addDrawerItems() {
-        String[] osArray = { "Map", "Players", "Video", "My Profile"};
+        String[] osArray = { "Map", "Players", "Video", "My Profile", "Test Screen"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -310,6 +310,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                         Intent appIntent = new Intent(MainActivity.this, PlayYoutubeActivity.class);
                         startActivity(appIntent);
                         Toast.makeText(MainActivity.this, "See Video", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
+                    case 3:{
+
+                        Intent appIntent = new Intent(MainActivity.this, MyProfileDialog.class);
+                        startActivity(appIntent);
+                        Toast.makeText(MainActivity.this, "My Profile", Toast.LENGTH_SHORT).show();
                         break;
                     }
 
