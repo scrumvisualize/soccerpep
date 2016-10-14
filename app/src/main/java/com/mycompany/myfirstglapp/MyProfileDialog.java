@@ -19,13 +19,15 @@ public class MyProfileDialog extends Activity {
 
         final CharSequence[] items = {" In "," Out "," May be "};
         // arraylist to keep the selected items
-        final ArrayList seletedItems=new ArrayList();
+        final ArrayList seletedItems = new ArrayList();
 
         AlertDialog dialog = new AlertDialog.Builder(MyProfileDialog.this)
                 .setTitle(" Available for soccer today ?")
-                .setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
+                .setSingleChoiceItems(items, 1, new DialogInterface.OnClickListener() {
+                    final boolean isChecked = Boolean.FALSE;
                     @Override
-                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                    public void onClick(DialogInterface dialog, int indexSelected) {
+
                         if (isChecked) {
                             // If the user checked the item, add it to the selected items
                             seletedItems.add(indexSelected);
