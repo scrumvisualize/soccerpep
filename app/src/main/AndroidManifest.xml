@@ -48,6 +48,10 @@
             android:label="My Profile">
         </activity>
 
+        <activity android:name="com.mycompany.myfirstglapp.PdfActivity"
+            android:label="Soccer Rules">
+        </activity>
+
         <activity android:name="com.mycompany.myfirstglapp.LoginActivity" android:theme="@style/AppTheme.Dark" />
         <activity android:name="com.mycompany.myfirstglapp.SignupActivity" android:theme="@style/AppTheme.Dark" />
 

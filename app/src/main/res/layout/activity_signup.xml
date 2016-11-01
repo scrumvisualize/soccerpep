@@ -99,6 +99,15 @@
                 android:inputType="textPassword"
                 android:hint="Re-enter Password"/>
         </android.support.design.widget.TextInputLayout>
+        <!-- Send notification request button -->
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity = "center"
+            android:text="Notify Players!"
+            android:id="@+id/notifybutton1"
+            android:onClick="sendNotify"/>
 
         <!-- Signup Button -->
         <android.support.v7.widget.AppCompatButton
@@ -117,6 +126,7 @@
             android:text="Already a member? Login"
             android:gravity="center"
             android:textSize="16dip"/>
+
 
     </LinearLayout>
 </ScrollView>

@@ -64,6 +64,12 @@
             android:id="@+id/screenshots"
             android:contentDescription="@string/app_name"/>
 
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"/>
+
 
         <com.mapbox.mapboxsdk.maps.MapView
             android:id="@+id/mapview"
@@ -74,11 +80,24 @@
             mapbox:center_longitude="174.88203"
             mapbox:zoom="12"/>
 
-
+        <com.mapbox.services.android.geocoder.ui.GeocoderAutoCompleteView
+            android:id="@+id/query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="14dp"
+            android:background="@android:color/white"
+            android:elevation="12dp"
+            android:hint="Search Location"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@android:color/black"/>
 
     </RelativeLayout>
-
-
 
     <!-- Side navigation drawer UI -->
     <ListView

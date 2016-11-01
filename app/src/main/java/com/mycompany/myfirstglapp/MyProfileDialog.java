@@ -23,7 +23,7 @@ public class MyProfileDialog extends Activity {
 
         AlertDialog dialog = new AlertDialog.Builder(MyProfileDialog.this)
                 .setTitle(" Available for soccer today ?")
-                .setSingleChoiceItems(items, 1, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
                     final boolean isChecked = Boolean.FALSE;
                     @Override
                     public void onClick(DialogInterface dialog, int indexSelected) {

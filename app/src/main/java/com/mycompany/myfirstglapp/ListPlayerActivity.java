@@ -5,7 +5,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -19,24 +21,27 @@ public class ListPlayerActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ListView listView = getListView();
-        listView.setTextFilterEnabled(true);
         setListAdapter(new PlayerArrayAdapter(this, PLAYER_LIST));
         View headerView = ((LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header, null, false);
         getListView().addHeaderView(headerView);
-        //listView.setAdapter(null);
+
 
     }
+
 
 
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        TextView textView = (TextView) findViewById(R.id.label);
         //get selected items
-        String selectedValue = (String) getListAdapter().getItem(position);
-        Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
+        String selectedValue = (String) getListAdapter().getItem(position-1);
+        //String text = textView.getText().toString();
+        Toast.makeText(getApplicationContext(), selectedValue, Toast.LENGTH_SHORT).show();
 
 
     }
+
+
+
 
 }

@@ -1,8 +1,15 @@
 package com.mycompany.myfirstglapp;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +20,8 @@ import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.mycompany.myfirstglapp.R.attr.icon;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
@@ -25,6 +34,10 @@ public class SignupActivity extends AppCompatActivity {
     @Bind(R.id.input_reEnterPassword) EditText _reEnterPasswordText;
     @Bind(R.id.btn_signup) Button _signupButton;
     @Bind(R.id.link_login) TextView _loginLink;
+    Button notifybutton;
+    Notification myNotification;
+    int BLUE;
+
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +62,17 @@ public class SignupActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
+        notifybutton  = (Button) findViewById(R.id.notifybutton1);
+
+        notifybutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendNotify(view);
+
+            }
+        });
+
     }
 
     public void signup() {
@@ -155,5 +179,52 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+
+
+    public void sendNotify(View view) {
+
+        notifybutton  = (Button) findViewById(R.id.notifybutton1);
+//Get an instance of NotificationManager//
+
+        NotificationCompat.Builder mBuilder =  new NotificationCompat.Builder(this);
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mBuilder.setSmallIcon(R.drawable.notify_icon);
+        } else {
+            mBuilder.setSmallIcon(R.drawable.pep);
+        }
+         //.setSmallIcon(R.drawable.notify_icon)
+        //mBuilder.setColor(BLUE);
+
+       // mBuilder.setContentTitle("soccer pep");
+        //mBuilder.setContentText("Available for soccer?");
+
+// Gets an instance of the NotificationManager service//
+
+        //NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Intent notificationIntent = new Intent(this,MyProfileDialog.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,notificationIntent, 0);
+        //myNotification.flags |= Notification.FLAG_AUTO_CANCEL;
+        builder.setSmallIcon(R.drawable. notification_template_icon_bg)
+                .setContentTitle("Soccer Pep")
+                .setContentText("Available for soccer?")
+                .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification = builder.getNotification();
+        notificationManager.notify(R.drawable.notify_icon, notification);
+
+//When you issue multiple notifications about the same type of event, it’s best practice for your app to try to update an
+// existing notification with this new information, rather than immediately creating a new notification.
+// If you want to update this notification at a later date, you need to assign it an ID.
+// You can then use this ID whenever you issue a subsequent notification. If the previous notification is still visible,
+// the system will update this existing notification, rather than create a new one. In this example, the notification’s ID is 001//
+        //mNotificationManager.notify();
+       // notificationManager.notify(001, mBuilder.build());
+        Toast.makeText(SignupActivity.this, "Notification send", Toast.LENGTH_SHORT).show();
+
     }
 }

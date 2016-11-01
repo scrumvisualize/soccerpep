@@ -2,17 +2,29 @@ package com.mycompany.myfirstglapp;
 
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +40,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.MapboxAccountManager;
+import com.mapbox.mapboxsdk.annotations.Icon;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
@@ -36,6 +50,10 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.services.android.geocoder.ui.GeocoderAutoCompleteView;
+import com.mapbox.services.commons.models.Position;
+import com.mapbox.services.geocoding.v5.GeocodingCriteria;
+import com.mapbox.services.geocoding.v5.models.CarmenFeature;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -67,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
 
         MapboxAccountManager.start(this, "pk.eyJ1Ijoic2NydW12aXN1YWxpemUiLCJhIjoiNGE3NGVjNjAyM2Y1MGE3NDQ4OTc2NmI3M2E1Y2UwYTEifQ.WwFcNIwdabPx_irzZ3jDiA");
@@ -142,10 +160,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                         //mapView.getMapAsync(new OnMapReadyCallback() {
                             //@Override
                             //public void onMapReady(MapboxMap mapboxMap) {
+                        IconFactory iconFactory = IconFactory.getInstance(MainActivity.this);
+                        Drawable iconDrawable = ContextCompat.getDrawable(MainActivity.this, R.drawable.vinod_1);
+                        Icon icon = iconFactory.fromDrawable(iconDrawable);
                         userMarker = map.addMarker(new MarkerOptions()
                                         .position(new LatLng(gps.location.getLatitude(), gps.location.getLongitude()))
                                         .title("Hello Vinod !")
-                                        .snippet("Welcome to mapbox"));
+                                        .snippet("Welcome to mapbox")
+                                        .icon(icon));
                         //Adding the camera here as suggeted
                             CameraPosition cameraPosition = new CameraPosition.Builder()
                                 .target(new LatLng(gps.location.getLatitude(), gps.location.getLongitude()))      // Sets the center of the map to Mountain View
@@ -205,7 +227,33 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
         });
 
+        // Set up autocomplete widget and GeoCoder search in Mapbox map
+        GeocoderAutoCompleteView autocomplete = (GeocoderAutoCompleteView) findViewById(R.id.query);
+        autocomplete.setAccessToken(MapboxAccountManager.getInstance().getAccessToken());
+        autocomplete.setType(GeocodingCriteria.TYPE_POI);
+        autocomplete.setOnFeatureListener(new GeocoderAutoCompleteView.OnFeatureListener() {
+            @Override
+            public void OnFeatureClick(CarmenFeature feature) {
+                Position position = feature.asPosition();
+                updateMap(position.getLatitude(), position.getLongitude());
+            }
+        });
 
+
+    }
+
+    private void updateMap(double latitude, double longitude) {
+        // Build marker
+        map.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title("Cool, your searched place !"));
+
+        // Animate camera to geocoder result location
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(latitude, longitude))
+                .zoom(12)
+                .build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000, null);
     }
 
     public void saveBitmap(Bitmap bitmap) {
@@ -282,10 +330,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
 
     private void addDrawerItems() {
-        String[] osArray = { "Map", "Players", "Video", "My Profile", "Test Screen"};
+        String[] osArray = { "Map", "Players", "Video", "My Profile", "Soccer Rules", "Test Screen"};
+        //int ICONS[] = {R.drawable.ic_home,R.drawable.ic_events,R.drawable.ic_mail,R.drawable.ic_shop,R.drawable.ic_travel};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
-
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -318,6 +366,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                         Intent appIntent = new Intent(MainActivity.this, MyProfileDialog.class);
                         startActivity(appIntent);
                         Toast.makeText(MainActivity.this, "My Profile", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
+                    case 4:{
+
+                        Intent appIntent = new Intent(MainActivity.this, PdfActivity.class);
+                        startActivity(appIntent);
+                        Toast.makeText(MainActivity.this, "Soccer Law", Toast.LENGTH_SHORT).show();
                         break;
                     }
 
@@ -391,9 +447,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
 
     // Add the mapView lifecycle to the activity's lifecycle methods

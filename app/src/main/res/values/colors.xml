@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#3939ac</color>
     <color name="colorAccent">#FF4081</color>
     <color name="titlebackgroundcolor">#ff4d4d</color>
+    <color name="my_notif_color">#6666cc</color>
+
 </resources>
