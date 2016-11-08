@@ -468,7 +468,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     }
 
 
-   
+
 
     // Add the mapView lifecycle to the activity's lifecycle methods
     @Override
