@@ -47,16 +47,30 @@
             android:textColor="#ffffff"/>
 
         <Button android:id="@+id/share1"
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/share"
-            android:color="#b3b3b3"
-            android:alpha="0.60"
-            android:layout_marginTop="400dp"
+            android:drawableRight="@android:drawable/ic_menu_share"
+            android:background="@drawable/button_bg_round"
+            android:layout_marginTop="420dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:padding="7dp" />
+
+        <Button
+            android:id ="@+id/camera_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginBottom="10dp"
+            android:drawableLeft="@android:drawable/ic_menu_camera"
+            android:background="@drawable/button_bg_round"
+            android:padding="9dp" />
+
+
 
         <ImageView
             android:layout_width="fill_parent"
@@ -70,15 +84,6 @@
             android:layout_height="100dp"
             android:scaleType="fitXY"/>
 
-
-        <com.mapbox.mapboxsdk.maps.MapView
-            android:id="@+id/mapview"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            mapbox:style_url="@string/style_mapbox_streets"
-            mapbox:center_latitude="-36.91044"
-            mapbox:center_longitude="174.88203"
-            mapbox:zoom="12"/>
 
         <com.mapbox.services.android.geocoder.ui.GeocoderAutoCompleteView
             android:id="@+id/query"
@@ -96,6 +101,18 @@
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@android:color/black"/>
+
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            mapbox:style_url="@string/style_mapbox_streets"
+            mapbox:center_latitude="-36.91044"
+            mapbox:center_longitude="174.88203"
+            mapbox:zoom="12"
+            android:layout_below="@+id/screenshots"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 

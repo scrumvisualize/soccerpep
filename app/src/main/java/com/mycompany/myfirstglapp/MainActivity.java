@@ -22,6 +22,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -37,6 +38,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.MapboxAccountManager;
@@ -60,6 +62,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+
+import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
 
 
 public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     private MapboxMap map;
     Button myButton;
     Button share;
+    Button videoCapture;
     protected LocationManager locationManager;
     private Marker customMarker;
     private Marker userMarker;
@@ -78,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     File imagePath;
     private boolean isUpdate;
     ImageView image;
+
+
 
 
     @Override
@@ -226,6 +234,17 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
 
         });
+        videoCapture = (Button) findViewById(R.id.camera_button);
+        videoCapture.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View arg0) {
+
+                Toast.makeText(MainActivity.this, "Recording Started", Toast.LENGTH_SHORT).show();
+
+
+
+            }});
 
         // Set up autocomplete widget and GeoCoder search in Mapbox map
         GeocoderAutoCompleteView autocomplete = (GeocoderAutoCompleteView) findViewById(R.id.query);
@@ -448,6 +467,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         return super.onOptionsItemSelected(item);
     }
 
+
+   
 
     // Add the mapView lifecycle to the activity's lifecycle methods
     @Override

@@ -12,6 +12,17 @@ android:background="#2f8dbf" >
     android:id="@+id/pdfSurface"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center" />
+    android:layout_gravity="center"
+    android:background="#2f8dbf"/>
+
+    <Button android:id="@+id/pdfView1"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:onClick="pdfButton"
+        android:text="@string/Soccer_Rules"
+        android:layout_marginBottom="5dp"
+        android:background="#4dc3ff"
+        android:textColor="#ffffff"/>
 	
 </FrameLayout>
