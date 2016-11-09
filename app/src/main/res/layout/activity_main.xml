@@ -66,6 +66,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="7dp"
             android:layout_marginBottom="10dp"
+            android:onClick="startRecording"
             android:drawableLeft="@android:drawable/ic_menu_camera"
             android:background="@drawable/button_bg_round"
             android:padding="9dp" />

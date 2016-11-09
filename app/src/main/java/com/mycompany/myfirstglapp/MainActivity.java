@@ -64,6 +64,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
+import static android.R.attr.value;
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
 
 
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     File imagePath;
     private boolean isUpdate;
     ImageView image;
+    private Uri fileUri;
+    private static final int VIDEO_CAPTURE = 101;
 
 
 
@@ -242,7 +245,16 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
                 Toast.makeText(MainActivity.this, "Recording Started", Toast.LENGTH_SHORT).show();
 
+                Intent myIntent = new Intent(MainActivity.this, CameraAppActivity.class);
 
+                File mediaFile = new
+                        File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + "/myvideo.mp4");
+                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                fileUri = Uri.fromFile(mediaFile);
+
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                startActivityForResult(intent, VIDEO_CAPTURE);
 
             }});
 
